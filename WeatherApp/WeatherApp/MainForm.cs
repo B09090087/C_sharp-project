@@ -6,8 +6,8 @@ namespace WeatherApp
     public partial class MainForm : Form
     {
 
-        // OpenWeatherMap API ±KÆ_
-        private const string apiKey = "f8dbc2b96d22f6fdc54b2e5ee8de0e85"; // ´À´«¬°§Aªº API ±KÆ_
+        // OpenWeatherMap API å¯†é‘°
+        private const string apiKey = "f8dbc2b96d22f6fdc54b2e5ee8de0e85"; 
         private const string apiUrl = "http://api.openweathermap.org/data/2.5/weather?q={0}&appid={1}&units=metric";
 
         public MainForm()
@@ -20,19 +20,19 @@ namespace WeatherApp
             string city = txtCity.Text.Trim();
             if (string.IsNullOrEmpty(city))
             {
-                MessageBox.Show("½Ğ¿é¤J«°¥«¦WºÙ¡I");
+                MessageBox.Show("è«‹è¼¸å…¥åŸå¸‚åç¨±ï¼");
                 return;
             }
 
             try
             {
-                // ©I¥s¨ú±o¤Ñ®ğ¸ê®Æªº«D¦P¨B¤èªk
+                // å‘¼å«å–å¾—å¤©æ°£è³‡æ–™çš„éåŒæ­¥æ–¹æ³•
                 string weatherData = await GetWeatherDataAsync(city);
                 ParseAndDisplayWeather(weatherData);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("µLªkÀò¨ú¤Ñ®ğ¸ê®Æ: " + ex.Message);
+                MessageBox.Show("ç„¡æ³•ç²å–å¤©æ°£è³‡æ–™: " + ex.Message);
             }
         }
 
@@ -51,27 +51,27 @@ namespace WeatherApp
         {
             try
             {
-                // ª½±µ±N JSON ¦r¦ê¤Ï§Ç¦C¤Æ¬°°ÊºAª«¥ó
+                // ç›´æ¥å°‡ JSON å­—ä¸²ååºåˆ—åŒ–ç‚ºå‹•æ…‹ç‰©ä»¶
                 dynamic weatherJson = JsonConvert.DeserializeObject(weatherData);
 
-                // ´£¨ú¤Ñ®ğ¸ê®Æ
+                // æå–å¤©æ°£è³‡æ–™
                 string cityName = weatherJson.name;
                 string weatherDescription = weatherJson.weather[0].description;
                 double temperature = weatherJson.main.temp;
                 double humidity = weatherJson.main.humidity;
                 double windSpeed = weatherJson.wind.speed;
 
-                // Åã¥Ü¦b¬É­±¤W
-                lblCity.Text = $"«°¥«: {cityName}";
-                lblWeather.Text = $"¤Ñ®ğ: {weatherDescription}";
-                lblTemperature.Text = $"®ğ·Å: {temperature}¢XC";
-                lblHumidity.Text = $"Àã«×: {humidity}%";
-                lblWindSpeed.Text = $"­·³t: {windSpeed} m/s";
+                // é¡¯ç¤ºåœ¨ç•Œé¢ä¸Š
+                lblCity.Text = $"åŸå¸‚: {cityName}";
+                lblWeather.Text = $"å¤©æ°£: {weatherDescription}";
+                lblTemperature.Text = $"æ°£æº«: {temperature}Â°C";
+                lblHumidity.Text = $"æ¿•åº¦: {humidity}%";
+                lblWindSpeed.Text = $"é¢¨é€Ÿ: {windSpeed} m/s";
             }
             catch (Exception ex)
             {
-                // Åã¥Ü¸Ô²Óªº¿ù»~«H®§¡AÀ°§U½Õ¸Õ
-                MessageBox.Show($"¸ÑªR¤Ñ®ğ¸ê®Æ®Éµo¥Í¿ù»~: {ex.Message}\n\n­ì©l¸ê®Æ:\n{weatherData}");
+                // é¡¯ç¤ºè©³ç´°çš„éŒ¯èª¤ä¿¡æ¯ï¼Œå¹«åŠ©èª¿è©¦
+                MessageBox.Show($"è§£æå¤©æ°£è³‡æ–™æ™‚ç™¼ç”ŸéŒ¯èª¤: {ex.Message}\n\nåŸå§‹è³‡æ–™:\n{weatherData}");
             }
         }
 
